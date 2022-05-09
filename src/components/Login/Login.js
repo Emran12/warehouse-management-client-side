@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import auth from "../../firebase.init";
+import GoogleSignIn from "../SocialLogin/GoogleSignIn/GoogleSignIn";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -45,6 +46,10 @@ const Login = () => {
         <p>
           New with medicor? <Link to={"/register"}>Register</Link>
         </p>
+        <div className="d-flex">
+          <span>or</span>
+        </div>
+        <GoogleSignIn></GoogleSignIn>
       </div>
       <ToastContainer></ToastContainer>
     </div>
