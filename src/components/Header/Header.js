@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import banner from "../Header/landing_slide-bg.jpg";
+import Link from "react-router-dom";
+
 const Header = () => {
   return (
     <div>
@@ -12,12 +13,14 @@ const Header = () => {
             <Nav className="me-auto">
               <Nav.Link href="/home">Home</Nav.Link>
               <Nav.Link href="/products">Products</Nav.Link>
+            </Nav>
+            <Nav className="ms-auto">
               <Nav.Link href="/blog">Blog</Nav.Link>
+              <Nav.Link href="/login">Log in</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <img src={banner} className="w-100" alt="" />
     </div>
   );
 };
