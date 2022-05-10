@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import Banner from "../components/Banner/Banner";
+import { Link } from "react-router-dom";
+import Banner from "../Banner/Banner";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -41,7 +42,13 @@ const Products = () => {
                           : "out of stock"}{" "}
                       </h5>
                     </Card.Text>
-                    <Button variant="primary">Manage Product</Button>
+
+                    <Link
+                      className="text-decoration-none border p-2 bg-primary text-white rounded"
+                      to="/product/:id"
+                    >
+                      Manage Product
+                    </Link>
                   </Card.Body>
                 </Card>
               </Col>
