@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Banner from "../Banner/Banner";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+
+  const handleProductDetails = (id) => {
+    navigate(`/product/${id}`);
+  };
   return (
     <div>
       <Banner></Banner>
@@ -37,24 +42,29 @@ const Products = () => {
                     <Card.Text>
                       <h5>
                         Availability:
-                        {product.quantity > 0
-                          ? " in Stock"
-                          : "out of stock"}{" "}
+                        {product.quantity > 0 ? " in Stock" : "out of stock"}
                       </h5>
                     </Card.Text>
 
-                    <Link
-                      className="text-decoration-none border p-2 bg-primary text-white rounded"
-                      to="/product/:id"
+                    <Button
+                      onClick={() => handleProductDetails(`${product._id}`)}
                     >
                       Manage Product
-                    </Link>
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>
             </div>
           ))}
         </Row>
+      </div>
+      <div className="container text-center mt-3">
+        <Link
+          className="text-decoration-none text-white bg-primary border p-2 rounded font-bold fs-2"
+          to="/manageproducts"
+        >
+          Manage Products
+        </Link>
       </div>
     </div>
   );

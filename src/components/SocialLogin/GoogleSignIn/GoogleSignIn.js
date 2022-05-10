@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,9 +7,11 @@ import Spinner from "../../Spinner/Spinner";
 
 const GoogleSignIn = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location?.state?.from?.pathname || "/";
+
   if (loading) {
     <Spinner></Spinner>;
   }
@@ -18,8 +20,9 @@ const GoogleSignIn = () => {
   }
   if (user) {
     navigate(from, { replace: true });
-    toast(`Signed in with ${user.displayName}`);
+    toast(`Signed in with `);
   }
+
   return (
     <div>
       <button onClick={() => signInWithGoogle()}>Sign In With Google</button>

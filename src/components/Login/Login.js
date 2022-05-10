@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+    
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
