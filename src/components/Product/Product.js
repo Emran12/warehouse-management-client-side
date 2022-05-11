@@ -12,13 +12,13 @@ const Product = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setProduct(data));
-  }, []);
+  }, [id]);
 
   const handleDeliverd = () => {
     let qnty = product.quantity;
     qnty -= 1;
     product.quantity = qnty;
-    setProduct(product);
+    if (product.quantity <= 0) product.quantity = 0;
     const updatedProduct = {
       method: "PUT",
       headers: { "content-type": "application/json" },
@@ -26,7 +26,7 @@ const Product = () => {
     };
     fetch(`http://localhost:5000/product/${id}`, updatedProduct)
       .then((res) => res.json())
-      .then((data) => setProduct(product.quantity));
+      .then((data) => setProduct(data));
   };
 
   return (
@@ -49,7 +49,13 @@ const Product = () => {
               <Card.Text>
                 <h5>
                   Availability:
-                  {product.quantity}
+                  {product.quantity >= 0 ? (
+                    product.quantity
+                  ) : (
+                    <span className="text-warning">
+                      Temporarily Unavailable
+                    </span>
+                  )}
                 </h5>
               </Card.Text>
               <Button onClick={handleDeliverd}>Deliverd</Button>

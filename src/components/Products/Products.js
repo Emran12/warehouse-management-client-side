@@ -42,7 +42,13 @@ const Products = () => {
                     <Card.Text>
                       <h5>
                         Availability:
-                        {product.quantity > 0 ? " in Stock" : "out of stock"}
+                        {product.quantity > 0 ? (
+                          " in Stock"
+                        ) : (
+                          <span className="text-warning fs-4">
+                            out of stock
+                          </span>
+                        )}
                       </h5>
                     </Card.Text>
 

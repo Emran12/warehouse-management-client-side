@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Row, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const ManageProducts = () => {
@@ -14,6 +14,22 @@ const ManageProducts = () => {
   const handleProductDetails = (id) => {
     navigate(`/product/${id}`);
   };
+
+  const handleDeleteProduct = (id) => {
+    const url = `http://localhost:5000/product/${id}`;
+    const proceed = window.confirm("Are you sure you want to delete?");
+    if (proceed) {
+      fetch(url, { method: "DELETE" })
+        .then((res) => res.json())
+        .then((data) => {
+          const remainingProducts = products.filter(
+            (product) => product._id !== id
+          );
+          setProducts(remainingProducts);
+        });
+    }
+  };
+
   return (
     <div>
       <div className="container mt-4 mb-2">
@@ -31,7 +47,7 @@ const ManageProducts = () => {
             </tr>
           </thead>
           {products.map((product) => (
-            <tbody>
+            <tbody key={product._id}>
               <tr>
                 <td>{product._id}</td>
                 <td>{product.productName}</td>
@@ -42,7 +58,9 @@ const ManageProducts = () => {
                   <Button>+</Button>
                 </td>
                 <td className="text-center">
-                  <Button>X</Button>
+                  <Button onClick={() => handleDeleteProduct(product._id)}>
+                    X
+                  </Button>
                 </td>
               </tr>
             </tbody>
