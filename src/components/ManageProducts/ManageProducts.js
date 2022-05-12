@@ -11,10 +11,6 @@ const ManageProducts = () => {
       .then((data) => setProducts(data));
   }, []);
 
-  const handleProductDetails = (id) => {
-    navigate(`/product/${id}`);
-  };
-
   const handleDeleteProduct = (id) => {
     const url = `http://localhost:5000/product/${id}`;
     const proceed = window.confirm("Are you sure you want to delete?");
@@ -30,43 +26,46 @@ const ManageProducts = () => {
     }
   };
 
+  const handleAddItem = () => {
+    navigate("/additem");
+  };
+
   return (
-    <div>
-      <div className="container mt-4 mb-2">
+    <div className="container">
+      <div className="mt-4 mb-2">
         <h1 className="text-center text-info text-bold">Products</h1>
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Product Name</th>
-              <th>Supplier Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Add Item</th>
-              <th>Del.Item</th>
-            </tr>
-          </thead>
-          {products.map((product) => (
-            <tbody key={product._id}>
+        {products.length > 0 && (
+          <Table striped bordered hover size="sm">
+            <thead>
               <tr>
-                <td>{product._id}</td>
-                <td>{product.productName}</td>
-                <td>{product.supplierName}</td>
-                <td className="text-center">${product.price}</td>
-                <td className="text-center">{product.quantity}</td>
-                <td className="text-center">
-                  <Button>+</Button>
-                </td>
-                <td className="text-center">
-                  <Button onClick={() => handleDeleteProduct(product._id)}>
-                    X
-                  </Button>
-                </td>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Supplier Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Del.Item</th>
               </tr>
-            </tbody>
-          ))}
-        </Table>
+            </thead>
+            {products.map((product) => (
+              <tbody key={product._id}>
+                <tr>
+                  <td>{product._id}</td>
+                  <td>{product.productName}</td>
+                  <td>{product.supplierName}</td>
+                  <td className="text-center">${product.price}</td>
+                  <td className="text-center">{product.quantity}</td>
+                  <td className="text-center">
+                    <Button onClick={() => handleDeleteProduct(product._id)}>
+                      X
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </Table>
+        )}
       </div>
+      <Button onClick={handleAddItem}>Add New Item</Button>
     </div>
   );
 };

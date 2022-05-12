@@ -21,7 +21,7 @@ const Products = () => {
       <div className="container mt-4 mb-2">
         <h1 className="text-center text-info text-bold">Products</h1>
         <Row xs={1} md={2} lg={3} className="g-4">
-          {products.slice(0, 6).map((product) => (
+          {products.slice(0, 13).map((product) => (
             <div key={product._id}>
               <Col>
                 <Card style={{ width: "20rem" }}>
@@ -66,7 +66,7 @@ const Products = () => {
       </div>
       <div className="container text-center mt-3">
         <Link
-          className="text-decoration-none text-white bg-primary border p-2 rounded font-bold fs-2"
+          className="text-decoration-none text-white bg-primary border p-2 rounded font-bold fs-3"
           to="/manageproducts"
         >
           Manage Products

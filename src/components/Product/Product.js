@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
-
   useEffect(() => {
     const url = `http://localhost:5000/product/${id}`;
     fetch(url)
@@ -19,14 +18,19 @@ const Product = () => {
     qnty -= 1;
     product.quantity = qnty;
     if (product.quantity <= 0) product.quantity = 0;
-    const updatedProduct = {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ quantity: product.quantity }),
-    };
-    fetch(`http://localhost:5000/product/${id}`, updatedProduct)
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
+    const data = product;
+    fetch(`http://localhost:5000/product/${id}`, {
+      method: "PUT", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        setProduct(data);
+      });
   };
 
   return (
