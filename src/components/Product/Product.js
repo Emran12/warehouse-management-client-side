@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Row, Col } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+
   useEffect(() => {
     const url = `http://localhost:5000/product/${id}`;
     fetch(url)
@@ -13,14 +16,14 @@ const Product = () => {
       .then((data) => setProduct(data));
   }, [id]);
 
-  const handleDeliverd = () => {
+  const handleDeliverd = (id) => {
     let qnty = product.quantity;
     qnty -= 1;
     product.quantity = qnty;
     if (product.quantity <= 0) product.quantity = 0;
     const data = product;
     fetch(`http://localhost:5000/product/${id}`, {
-      method: "PUT", // or 'PUT'
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,9 +31,11 @@ const Product = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
         setProduct(data);
       });
+  };
+  const handleRestock = (e) => {
+    console.log(e);
   };
 
   return (
@@ -62,7 +67,26 @@ const Product = () => {
                   )}
                 </h5>
               </Card.Text>
-              <Button onClick={handleDeliverd}>Deliverd</Button>
+              <Card.Text>
+                <div className="d-flex">
+                  <Button onClick={() => handleDeliverd(product._id)}>
+                    Deliverd
+                  </Button>
+                  <form onSubmit={handleRestock}>
+                    <input
+                      className="p-2"
+                      type="number"
+                      name="productQnty"
+                      id=""
+                    />
+                    <input
+                      className="text-white bg-primary p-2 rounded"
+                      type="submit"
+                      value="Restock Item"
+                    />
+                  </form>
+                </div>
+              </Card.Text>
             </Col>
           </Row>
         </Card.Body>
