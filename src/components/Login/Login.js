@@ -19,7 +19,7 @@ const Login = () => {
 
   if (user) {
     navigate(from, { replace: true });
-    toast("User loged in successfully!!");
+    toast("User logged in successfully!!");
   }
   if (loading) {
     <Spinner></Spinner>;
