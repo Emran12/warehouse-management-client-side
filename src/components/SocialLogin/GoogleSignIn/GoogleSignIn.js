@@ -1,21 +1,19 @@
-import { getAuth } from "firebase/auth";
 import React, { useEffect } from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import app from "../../../firebase.init";
 import auth from "../../../firebase.init";
 import Spinner from "../../Spinner/Spinner";
 
 const GoogleSignIn = () => {
-  const auth = getAuth(app);
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [currentUser] = useAuthState(auth);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
-  console.log(auth);
-  console.log("dkfjdkfj", user);
+
+  console.log("dkfjdkfj", user?.email, currentUser);
 
   if (loading) {
     <Spinner></Spinner>;
@@ -25,7 +23,7 @@ const GoogleSignIn = () => {
     toast(`error: ${error.message}`);
   }
 
-  if (user) {
+  if (user || currentUser) {
     navigate(from, { replace: true });
     toast(`Signed in with `);
   }

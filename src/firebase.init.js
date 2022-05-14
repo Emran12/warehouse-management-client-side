@@ -1,13 +1,15 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBQ_RMkixGZvJes3YScOGWtSunlMO1P6BY",
-  authDomain: "medicor-612ce.firebaseapp.com",
-  projectId: "medicor-612ce",
-  storageBucket: "medicor-612ce.appspot.com",
-  messagingSenderId: "198939414636",
-  appId: "1:198939414636:web:49de595597b76c476b0849",
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  appId: process.env.REACT_APP_appId,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export default app;
+const auth = getAuth(app);
+export default auth;

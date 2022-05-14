@@ -30,7 +30,7 @@ const Products = () => {
                     <Card.Img variant="top" height="300px" src={product.img} />
                     <Card.Text>
                       {product.description.length > 200
-                        ? `${product.description.slice(0, 200)}...`
+                        ? `${product.description.slice(0, 6)}...`
                         : product.description}
                     </Card.Text>
                     <Card.Text>

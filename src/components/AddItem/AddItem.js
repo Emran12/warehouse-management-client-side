@@ -1,15 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const AddItem = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     fetch("http://localhost:5000/products", {
-      method: "POST", // or 'PUT'
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,17 +20,23 @@ const AddItem = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        navigate("/manageproducts");
       });
   };
   return (
     <div className="container mx-auto">
       <h1 className="text-center text-info fs-1 text-bold">Add Products</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("productName")} placeholder="Enter Item Name" />
+      <form
+        className="d-flex flex-column w-50 mx-auto"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input
+          {...register("productName", { required: true })}
+          placeholder="Enter Item Name"
+        />
         <input
           {...register("img", { required: true })}
-          placeholder="photoUrl"
+          placeholder="PhotoUrl"
         />
         {errors.photoUrl && <p>photoUrl is required.</p>}
         <input
@@ -40,7 +49,7 @@ const AddItem = () => {
         />
         <input
           {...register("price", { pattern: /\d+/ })}
-          placeholder="Ener Price"
+          placeholder="Enter Price"
         />
         {errors.age && <p>Please enter number for price.</p>}
         <input

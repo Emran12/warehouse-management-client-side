@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,16 +15,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
+  const [currentUser, loading1] = useAuthState(auth);
+  console.log(currentUser);
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
 
-  if (user) {
+  if (user || currentUser) {
     navigate(from, { replace: true });
     toast("User logged in successfully!!");
   }
-  if (loading) {
+  if (loading || loading1) {
     <Spinner></Spinner>;
   }
   if (error) {

@@ -6,6 +6,7 @@ import auth from "../../firebase.init";
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  console.log(user);
   const logout = () => {
     signOut(auth);
   };
@@ -13,7 +14,7 @@ const Header = () => {
     <div>
       <Navbar bg="primary" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="/home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="/home">Medicor</Navbar.Brand>
           <Navbar.Toggle></Navbar.Toggle>
           <Navbar.Collapse>
             <Nav className="me-auto">
@@ -23,7 +24,12 @@ const Header = () => {
             <Nav className="ms-auto">
               <Nav.Link href="/blog">Blog</Nav.Link>
               {user ? (
-                <Button onClick={logout}>{user.displayName}Log out</Button>
+                <>
+                  <Nav.Link href="/manageproducts">Manage Items</Nav.Link>
+                  <Nav.Link href="/additem">Add Item</Nav.Link>
+                  <Nav.Link href="/myitems">My Items</Nav.Link>
+                  <Button onClick={logout}>Log out</Button>
+                </>
               ) : (
                 <Nav.Link href="/login">Log in</Nav.Link>
               )}
