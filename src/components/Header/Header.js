@@ -25,8 +25,6 @@ const Header = () => {
               <Nav.Link href="/blog">Blog</Nav.Link>
               {user ? (
                 <>
-                  <Nav.Link href="/manageproducts">Manage Items</Nav.Link>
-                  <Nav.Link href="/additem">Add Item</Nav.Link>
                   <Nav.Link href="/myitems">My Items</Nav.Link>
                   <Button onClick={logout}>Log out</Button>
                 </>

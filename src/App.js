@@ -11,6 +11,7 @@ import Product from "./components/Product/Product";
 import ManageProducts from "./components/ManageProducts/ManageProducts";
 import AddItem from "./components/AddItem/AddItem";
 import MyItems from "./components/MyItems/MyItems";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/additem" element={<AddItem></AddItem>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </div>
   );
