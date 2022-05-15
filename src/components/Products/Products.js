@@ -21,7 +21,7 @@ const Products = () => {
       <div className="container mt-4 mb-2">
         <h1 className="text-center text-info text-bold">Products</h1>
         <Row xs={1} md={2} lg={3} className="g-4">
-          {products.slice(0, 13).map((product) => (
+          {products.slice(0, 6).map((product) => (
             <div key={product._id}>
               <Col>
                 <Card style={{ width: "20rem" }}>
@@ -30,7 +30,7 @@ const Products = () => {
                     <Card.Img variant="top" height="300px" src={product.img} />
                     <Card.Text>
                       {product.description.length > 200
-                        ? `${product.description.slice(0, 6)}...`
+                        ? `${product.description.slice(0, 200)}...`
                         : product.description}
                     </Card.Text>
                     <Card.Text>
