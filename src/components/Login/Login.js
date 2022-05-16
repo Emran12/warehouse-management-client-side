@@ -4,7 +4,7 @@ import {
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import auth from "../../firebase.init";
 import GoogleSignIn from "../SocialLogin/GoogleSignIn/GoogleSignIn";
@@ -16,14 +16,13 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [currentUser, loading1] = useAuthState(auth);
-  console.log(currentUser);
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
 
   if (user || currentUser) {
+    if (user) toast("User logged in successfully!!");
     navigate(from, { replace: true });
-    toast("User logged in successfully!!");
   }
   if (loading || loading1) {
     <Spinner></Spinner>;
@@ -64,7 +63,6 @@ const Login = () => {
         </div>
         <GoogleSignIn></GoogleSignIn>
       </div>
-      <ToastContainer></ToastContainer>
     </div>
   );
 };

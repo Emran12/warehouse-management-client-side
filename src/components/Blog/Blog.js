@@ -145,7 +145,6 @@ const Blog = () => {
           header, and sign tha
         </p>
       </div>
-      <Footer></Footer>
     </div>
   );
 };

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Row, Col } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Product = () => {
+  const [user] = useAuthState(auth);
   const {
     register,
     handleSubmit,
@@ -12,20 +15,26 @@ const Product = () => {
   } = useForm();
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [qnty, setQnty] = useState(0);
+  const [delivered, setDelivered] = useState({});
+
   useEffect(() => {
-    const url = `http://localhost:5000/product/${id}`;
+    const url = `https://hidden-escarpment-52790.herokuapp.com/product/${id}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, []);
 
   const handleDelivered = (id) => {
-    let qnty = product.quantity;
-    qnty -= 1;
-    product.quantity = qnty;
+    product.quantity = parseInt(product.quantity);
+    --product.quantity;
     if (product.quantity < 0) product.quantity = 0;
-    const data = product;
-    fetch(`http://localhost:5000/product/${id}`, {
+    product.email = user.email;
+    const data = {
+      quantity: product.quantity,
+      email: product.email,
+    };
+    fetch(`https://hidden-escarpment-52790.herokuapp.com/product/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +43,7 @@ const Product = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
+        setDelivered(data);
       });
   };
 
@@ -43,23 +52,22 @@ const Product = () => {
     const newQnty = preQnty + parseInt(data.productQnty);
     if (newQnty < 0) product.quantity = 0;
     product.quantity = newQnty;
-    data = product;
-    console.log(data);
-    fetch(`http://localhost:5000/product/${id}`, {
+
+    fetch(`https://hidden-escarpment-52790.herokuapp.com/product/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(product.quantity),
     })
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
+        setQnty(data);
       });
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginBottom: "500px" }}>
       <Card className="border-0">
         <Card.Body>
           <Row>

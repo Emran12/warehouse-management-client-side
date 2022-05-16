@@ -11,7 +11,7 @@ const AddItem = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    fetch("http://localhost:5000/products", {
+    fetch("https://hidden-escarpment-52790.herokuapp.com/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

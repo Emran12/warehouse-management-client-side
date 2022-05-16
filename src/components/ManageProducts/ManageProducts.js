@@ -6,13 +6,13 @@ const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://hidden-escarpment-52790.herokuapp.com/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
 
   const handleDeleteProduct = (id) => {
-    const url = `http://localhost:5000/product/${id}`;
+    const url = `https://hidden-escarpment-52790.herokuapp.com/product/${id}`;
     const proceed = window.confirm("Are you sure you want to delete?");
     if (proceed) {
       fetch(url, { method: "DELETE" })

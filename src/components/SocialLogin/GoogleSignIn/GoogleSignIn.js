@@ -13,19 +13,22 @@ const GoogleSignIn = () => {
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
 
-  console.log("dkfjdkfj", user?.email, currentUser);
-
   if (loading) {
     <Spinner></Spinner>;
   }
 
   if (error) {
-    toast(`error: ${error.message}`);
+    toast.error(`error: ${error.message}`, { autoclose: 1500 });
   }
 
   if (user || currentUser) {
     navigate(from, { replace: true });
-    toast(`Signed in with `);
+    if (user)
+      toast.warn(
+        `Signed in with google`,
+        { autoclose: 1500 },
+        { toastId: "007" }
+      );
   }
 
   return (

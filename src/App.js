@@ -12,7 +12,9 @@ import ManageProducts from "./components/ManageProducts/ManageProducts";
 import AddItem from "./components/AddItem/AddItem";
 import MyItems from "./components/MyItems/MyItems";
 import NotFound from "./components/NotFound/NotFound";
-
+import Footer from "./components/Footer/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div>
@@ -35,12 +37,21 @@ function App() {
         ></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route path="/additem" element={<AddItem></AddItem>}></Route>
-        <Route path="/myitems" element={<MyItems></MyItems>}></Route>
+        <Route
+          path="/myitems"
+          element={
+            <RequireAuth>
+              <MyItems></MyItems>
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/additem" element={<AddItem></AddItem>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
+      <ToastContainer></ToastContainer>
+      <Footer></Footer>
     </div>
   );
 }

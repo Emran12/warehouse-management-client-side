@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const MyItems = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+  console.log(user);
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://hidden-escarpment-52790.herokuapp.com/products")
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => {
+        const result = data.filter((product) => product.email === user.email);
+        console.log(result);
+        setProducts(result);
+      });
   }, []);
 
   const handleDeleteProduct = (id) => {
-    const url = `http://localhost:5000/product/${id}`;
+    const url = `https://hidden-escarpment-52790.herokuapp.com/product/${id}`;
     const proceed = window.confirm("Are you sure you want to delete?");
     if (proceed) {
       fetch(url, { method: "DELETE" })
@@ -26,11 +34,8 @@ const MyItems = () => {
     }
   };
 
-  const handleAddItem = () => {
-    navigate("/additem");
-  };
   return (
-    <div className="container">
+    <div className="container" style={{ marginBottom: "500px" }}>
       <div className="mt-4 mb-2">
         <h1 className="text-center text-info text-bold">Products</h1>
         {products.length > 0 && (
@@ -64,7 +69,6 @@ const MyItems = () => {
           </Table>
         )}
       </div>
-      <Button onClick={handleAddItem}>Add New Item</Button>
     </div>
   );
 };
