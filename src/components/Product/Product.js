@@ -47,7 +47,7 @@ const Product = () => {
       });
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, event) => {
     const preQnty = parseInt(product.quantity);
     const newQnty = preQnty + parseInt(data.productQnty);
     if (newQnty < 0) product.quantity = 0;
@@ -64,6 +64,7 @@ const Product = () => {
       .then((data) => {
         setQnty(data);
       });
+    event.target.reset();
   };
 
   return (

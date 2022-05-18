@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import auth from "../../firebase.init";
 import GoogleSignIn from "../SocialLogin/GoogleSignIn/GoogleSignIn";
 import Spinner from "../Spinner/Spinner";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,16 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
+
+  const handleSignIn = async () => {
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post(
+      "https://hidden-escarpment-52790.herokuapp.com/login",
+      { email }
+    );
+    localStorage.setItem("accessToken", data.accessToken);
+    navigate(from, { replace: true });
+  };
 
   if (user || currentUser) {
     if (user) toast("User logged in successfully!!");
@@ -49,10 +60,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br></br>
-        <button
-          className="btn btn-primary"
-          onClick={() => signInWithEmailAndPassword(email, password)}
-        >
+        <button className="btn btn-primary" onClick={handleSignIn}>
           Log in
         </button>
         <p>

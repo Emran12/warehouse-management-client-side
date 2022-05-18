@@ -12,23 +12,23 @@ Open [https://medicor-warehouse.web.app/](https://medicor-warehouse.web.app/) to
 
 ### `Server Site`
 
-See the section about [running tests](https://hidden-escarpment-52790.herokuapp.com/)
+See the section about [https://hidden-escarpment-52790.herokuapp.com](https://hidden-escarpment-52790.herokuapp.com/)
 
 ### Features and Technologies
 
--Create Data
--Delete Data
--Update Data
--Get/Read Data
--Email and Password Authentication
--Google Sign In
+*Create Data
+*Delete Data
+*Update Data
+*Get/Read Data
+*Email and Password Authentication
+*Google Sign In
 
 ### Technologies
 
--React
--React Bootstrap
--Firebase
--Node JS, Express JS, MongoDB
+*React
+*React Bootstrap
+*Firebase
+*Node JS, Express JS, MongoDB
 
 ### `npm run eject`
 
