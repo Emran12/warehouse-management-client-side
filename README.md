@@ -11,10 +11,8 @@ See the section about [https://hidden-escarpment-52790.herokuapp.com](https://hi
 
 ### Features and Technologies
 
-- Create Data
-- Delete Data
-- Update Data
-- Get/Read Data
+-The users must be logged in to manage inventories. 
+- The logged in user can delete or add a product to the warehous
 - Email and Password Authentication
 - Google Sign In
 
